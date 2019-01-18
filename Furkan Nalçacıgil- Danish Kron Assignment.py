@@ -99,3 +99,12 @@ print("RMSE: ",rms)
 #y_hat_avg['SARIMA'] = fit1.predict(start="2008-12-01", end="2018-11-30", dynamic=True)
 #rms = sqrt(mean_squared_error(test.VALUE, y_hat_avg.SARIMA))
 #print("RMSE: ",rms)
+
+# Holt-Winters
+print("Holt-Winters")
+y_hat_avg = test.copy()
+seasons = 10
+fit1 = ExponentialSmoothing(np.asarray(train['VALUE']) ,seasonal_periods=seasons ,trend='add', seasonal='add',).fit()
+y_hat_avg['Holt_Winter'] = fit1.forecast(len(test))
+rms = sqrt(mean_squared_error(test.VALUE, y_hat_avg.Holt_Winter))
+print("RMSE: ",rms)
